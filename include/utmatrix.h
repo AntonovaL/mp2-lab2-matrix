@@ -62,23 +62,33 @@ public:
 template <class ValType>
 TVector<ValType>::TVector(int s, int si)
 {
-} /*-------------------------------------------------------------------------*/
+	if ((s > MAX_VECTOR_SIZE) | (s <= 0)) throw "Error";
+	if ((si > s) | (si<0)) throw "Error";
+	pVector = new ValType[s - si];
+	Size = s;
+	StartIndex = si;
+} 
 
 template <class ValType> //конструктор копирования
 TVector<ValType>::TVector(const TVector<ValType> &v)
 {
-} /*-------------------------------------------------------------------------*/
-
+	Size = v.Size;
+	StartIndex = v.StartIndex;
+	pVector = new ValType[Size-StartIndex];
+	for (int i = 0; i < Size - StartIndex; i++)
+		pVector[i] = v.pVector[i];
+}
 template <class ValType>
 TVector<ValType>::~TVector()
 {
-} /*-------------------------------------------------------------------------*/
+	delete pVector;
+} 
 
 template <class ValType> // доступ
 ValType& TVector<ValType>::operator[](int pos)
 {
-} /*-------------------------------------------------------------------------*/
-
+	return pVector[StartIndex + pos];
+} 
 template <class ValType> // сравнение
 bool TVector<ValType>::operator==(const TVector &v) const
 {
@@ -92,8 +102,8 @@ bool TVector<ValType>::operator!=(const TVector &v) const
 template <class ValType> // присваивание
 TVector<ValType>& TVector<ValType>::operator=(const TVector &v)
 {
-} /*-------------------------------------------------------------------------*/
-
+	return *this;
+} 
 template <class ValType> // прибавить скаляр
 TVector<ValType> TVector<ValType>::operator+(const ValType &val)
 {
