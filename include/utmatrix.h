@@ -156,20 +156,22 @@ TVector<ValType> TVector<ValType>::operator*(const ValType &val)
 template <class ValType> // сложение
 TVector<ValType> TVector<ValType>::operator+(const TVector<ValType> &v)
 {
-	if ((Size != v.Size) | (StartIndex != v.StartIndex)) throw "Error";
+	TVector<ValType> tmp(Size, StartIndex);
+	if (Size != v.Size)  throw "Error";
 	for (int i = 0; i < Size; i++)
-		pVector[i] = pVector[i]+ v.pVector[i];
-	return *this;
+		tmp.pVector[i]=pVector[i] + v.pVector[i];
+	return tmp;
 
 } 
 
 template <class ValType> // вычитание
 TVector<ValType> TVector<ValType>::operator-(const TVector<ValType> &v)
 {
-	if ((Size != v.Size) | (StartIndex != v.StartIndex)) throw "Error";
+	TVector<ValType> tmp(Size, StartIndex);
+	if (Size != v.Size)  throw "Error";
 	for (int i = 0; i < Size; i++)
-		pVector[i] = pVector[i]- v.pVector[i];
-	return *this;
+		tmp.pVector[i] = pVector[i] - v.pVector[i];
+	return tmp;
 } 
 
 template <class ValType> // скалярное произведение
